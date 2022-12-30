@@ -1,7 +1,6 @@
-// Require mongoose
 const mongoose = require("mongoose");
-// Define Schema
 const Schema = mongoose.Schema;
+
 const userSchema = new Schema({
   first_name: {
     required: true,
