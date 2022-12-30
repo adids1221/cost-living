@@ -1,0 +1,24 @@
+{
+  "name": "cost-living",
+  "version": "1.0.0",
+  "description": "cost-living project Node.js course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adids1221/cost-living.git"
+  },
+  "author": "Adi Mordo, Stav Gallula",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adids1221/cost-living/issues"
+  },
+  "homepage": "https://github.com/adids1221/cost-living#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.8.1",
+    "nodemon": "^2.0.20"
+  }
+}
