@@ -1,26 +1,29 @@
 const express = require("express");
 const router = express.Router();
 const Cost = require("../models/cost");
-const User = require("../models/user");
+const { getUserById } = require('../utils/userUtils');
 
 router.post("/addcost", async (req, res) => {
-    const user = await User.findById(req.user.id);
+    const user = await getUserById(req.body.id);
     if (user) {
-        const { description, date, category, price } = req.body;
-        const cost = new Cost({
-            description,
-            date,
-            category,
-            price,
-            userId: user._id,
-        });
-        cost.save((err) => {
-            console.log(err);
-            res.redirect("/expenses");
-        });
+        const { description, year, month, day, category, sum, id } = req.body;
+        try {
+            const cost = new Cost({
+                description,
+                year,
+                month,
+                day,
+                category,
+                sum,
+                userId: id,
+            });
+            const result = await cost.save();
+            res.status(200).json({ success: true, result });
+        } catch (e) {
+            res.status(401).json({ success: false, error: e });
+        }
     } else {
-        res.status(401)
-        throw new Error('Invalid user id.')
+        res.status(401).json({ success: true, message: 'Invalid user id' });
     }
 });
 

@@ -5,14 +5,15 @@ const categorySchema = new Schema({
 	name: {
 		type: String,
 		required: true,
-		enum: ['Home',
-			'Transportation',
-			'Entertainment',
-			'Food',
+		enum: [
+			'Home',
 			'Health',
+			'Housing',
 			'Sport',
-			'Private',
-			'Education'],
+			'Education',
+			'Transportation',
+			'Other'
+		],
 	},
 });
 

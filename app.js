@@ -11,14 +11,13 @@ connectDB();
 
 app.use(express.static(path.join(__dirname, '..', 'build')));
 app.use(express.static('public'));
-app.use(express.json());
+app.use(bodyParser.json());
 app.use(
     bodyParser.urlencoded({
         extended: true,
     })
 );
 
-//Static folder
 const PORT = process.env.PORT || 8080;
 
 //Routes

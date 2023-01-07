@@ -14,9 +14,9 @@ const userSchema = new Schema({
     required: true,
     type: Date,
   },
-  email: {
+  Id: {
     type: String,
-  },
+  }
 });
 
 // Create and export a model
