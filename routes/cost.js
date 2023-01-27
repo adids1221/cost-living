@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const Cost = require("../models/cost");
+const Category = require("../models/category")
 const { getUserById } = require('../utils/userUtils');
 
 /* GET cost page. */
-router.get('/',function(req,res,next){
-   res.send('respond with a resource');
+router.get('/', function (req, res, next) {
+    res.send('respond with a resource');
 });
 
 router.post('/', async (req, res) => {
@@ -18,15 +19,18 @@ router.post('/', async (req, res) => {
                 year,
                 month,
                 day,
-                category,
+                category: new Category({
+                    name: category,
+                }),
                 sum,
                 userId: id,
             });
             const result = await cost.save();
             res.status(200).json({ success: true, result });
         } catch (e) {
-            console.log("my error" + e);
-            res.status(401).json({ success: false, error: e });
+            const errorKey = Object.keys(e.errors)[0].replace('.', ' ')
+            console.log("my error: " + errorKey);
+            res.status(401).render('error', { success: false, error: errorKey, message: e._message });;
         }
     } else {
         res.status(401).json({ success: true, message: 'Invalid user id' });
