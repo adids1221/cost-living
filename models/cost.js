@@ -18,9 +18,9 @@ const costSchema = new Schema({
         required: [true, 'Missing day.']
     },
     category: {
-        type: String,
-        required: [true, 'Missing category.']
-    },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category'
+},
     sum: {
         type: Number,
         required: [true, 'Missing sum.']
@@ -36,4 +36,6 @@ const costSchema = new Schema({
 });
 
 // Export the model
-module.exports = new mongoose.model("Cost", costSchema);
+//module.exports = new mongoose.model("Cost", costSchema);
+const Cost = mongoose.model("Cost", costSchema);
+module.exports = Cost;

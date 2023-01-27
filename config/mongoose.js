@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 //Atlas connection
 const connectDB = async ()=>{
     try {
-        const conn = await mongoose.connect(process.env.DB_CONNECT,{
+        const url = process.env.DB_CONNECT;
+        mongoose.set("strictQuery", false);
+        const conn = await mongoose.connect(url,{
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })

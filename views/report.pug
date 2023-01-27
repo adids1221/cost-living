@@ -1,0 +1,31 @@
+extends layout
+
+block content
+    h1 REPORT
+    each val in title
+        h2 Cost:
+        p
+            strong Id
+            | : #{val.userId}
+        p
+            strong Year
+            | : #{val.year}
+        p
+            strong Month
+            | : #{val.month}
+        p
+            strong Day
+            | : #{val.day}
+        p
+            strong Category
+            | : #{val.category}
+        p
+            strong Sum
+            | : #{val.sum}
+        p
+            strong Description
+            | : #{val.description}
+
+
+
+

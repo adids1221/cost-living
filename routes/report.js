@@ -1,77 +1,41 @@
-const router = require("express").Router();
+//const router = require("express").Router();
 const Cost = require("../models/cost");
+const express = require('express');
+const {getUserById} = require("../utils/userUtils");
+const router = express.Router();
 
-router.get("/report/:selectedYear/:selectedMonth", function (req, res) {
-  const requestedYear = req.params.selectedYear;
-  const requestedMonth = req.params.selectedMonth;
+
+router.get("/:id/:year/:month", function (req, res) {
+  // Retrieve the user_id, year, and month from the request parameters
+  const user_id = req.params.id;
+  const year = req.params.year;
+  const month = req.params.month;
+
+  // Use the Cost model to query for the detailed report
   Cost.aggregate(
-    [
-      {
-        $match: {
-          date: {
-            $gte: new Date(requestedYear, requestedMonth - 1, 1),
-            $lt: new Date(requestedYear, requestedMonth, 1),
+      [
+        {
+          $match: {
+            year: {
+              $eq: year
+            },
+            month: {
+              $eq: month
+            },
+            userId: {
+              $eq: user_id
+            }
           },
         },
-      },
-      {
-        $group: {
-          _id: {
-            year: { $year: "$date" },
-            month: { $month: "$date" },
-            user: "$userId",
-          },
-
-          total: {
-            $sum: "$price",
-          },
-        },
-      },
-    ],
-    function (err, result) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.json(result);
-      }
-    }
-  );
-});
-
-router.get("/report/:selectedYear", function (req, res) {
-  const requestedYear = req.params.selectedYear;
-
-  Cost.aggregate(
-    [
-      {
-        $match: {
-          date: {
-            $gte: new Date(requestedYear, 0, 1),
-            $lt: new Date(requestedYear + 1, 0, 1),
-          },
-        },
-      },
-      {
-        $group: {
-          _id: {
-            year: { $year: "$date" },
-
-            user: "$userId",
-          },
-          total: {
-            $sum: "$price",
-          },
-        },
-      },
-    ],
-    function (err, result) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.json(result);
-      }
-    }
-  );
+      ],
+      function (err, result) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.render('report', {title:result}); // HTML option
+          //res.json(result); // JSON option
+        }
+      });
 });
 
 module.exports = router;

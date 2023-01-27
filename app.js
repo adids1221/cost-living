@@ -3,27 +3,56 @@ const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const path = require('path');
 const connectDB = require('./config/mongoose');
+const createError = require('http-errors');
+const logger = require('morgan');
+
+const costRouter = require('./routes/cost');
+const reportRouter = require('./routes/report');
+const aboutRouter = require('./routes/about');
 
 const app = express();
 
 dotenv.config({ path: './.env' });
 connectDB();
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '..', 'build')));
 app.use(express.static('public'));
-app.use(bodyParser.json());
 app.use(
     bodyParser.urlencoded({
         extended: true,
     })
 );
+app.use(express.static(path.join(__dirname, 'public')));
 
-const PORT = process.env.PORT || 8080;
 
 //Routes
-app.use('/', require('./routes/cost'));
-app.use('/report', require('./routes//report'));
+app.use('/addcost', costRouter);
+app.use('/report', reportRouter);
+app.use('/about', aboutRouter);
 
-app.listen(PORT, () => {
-    console.log('Server is up and running on http://localhost:' + PORT);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    next(createError(404));
 });
+
+// error handler
+app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+});
+
+module.exports = app;
+
