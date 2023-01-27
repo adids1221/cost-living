@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get("/:id/:year/:month", function (req, res) {
   // Retrieve the user_id, year, and month from the request parameters
+  var mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const user_id = req.params.id;
   const year = req.params.year;
   let month = req.params.month;
@@ -40,8 +41,7 @@ router.get("/:id/:year/:month", function (req, res) {
         } else {
           if (result.length) {
             const user = await getUserById(user_id)
-            console.log(user);
-            res.status(200).render('report', { result, year, month, userId: user_id, user });
+            res.status(200).render('report', { result, year, month: mL[month_number - 1], userId: user_id, user });
           } else {
             res.status(200).render('report', { message: `The user did\'nt made any purchase in ${month} of ${year}.` });
           }
