@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Category = require("./category").schema;
 const Schema = mongoose.Schema;
 
 const costSchema = new Schema({
@@ -18,9 +19,9 @@ const costSchema = new Schema({
         required: [true, 'Missing day.']
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category'
-},
+        type: Category,
+        required: [true, 'Missing category.']
+    },
     sum: {
         type: Number,
         required: [true, 'Missing sum.']
