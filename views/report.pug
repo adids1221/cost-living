@@ -1,30 +1,37 @@
 extends layout
 
 block content
-    h1 REPORT
-    each val in title
-        h2 Cost:
-        p
-            strong Id
-            | : #{val.userId}
-        p
-            strong Year
-            | : #{val.year}
-        p
-            strong Month
-            | : #{val.month}
-        p
-            strong Day
-            | : #{val.day}
-        p
-            strong Category
-            | : #{val.category}
-        p
-            strong Sum
-            | : #{val.sum}
-        p
-            strong Description
-            | : #{val.description}
+    if user
+        h1.report_header REPORT :   #{user.first_name} #{user.last_name}
+    else 
+        h1.report_header REPORT
+    .row
+        if message 
+            h3.report_message #{message}
+        if userId 
+            h3.column User ID: #{userId}
+        if year 
+            h3.column Year:#{year}
+        if month 
+            h3.column Month:#{month}
+
+    if result
+        each val in result
+            .row 
+            .cost_data
+            h2 Cost:
+            p
+                strong Day
+                | : #{val.day}
+            p
+                strong Category
+                | : #{val.category.name}
+            p
+                strong Sum
+                | : #{val.sum}
+            p
+                strong Description
+                | : #{val.description}
 
 
 
