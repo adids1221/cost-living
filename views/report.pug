@@ -21,12 +21,12 @@ block content
             .cost_data
             h2.report_category_title #{category._id}:
             for cost in category.costs
-                for key, value in Object.entries(cost)
-                    - var str = key.toString().replace(',', ' : ');
-
-                    p.category_data
-                        | #{str}
-                br
+                if cost
+                    for key, value in Object.entries(cost)
+                        - var str = key.toString().replace(',', ' : ');
+                        p.category_data
+                            | #{str}
+                    br
 
 
 
