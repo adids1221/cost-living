@@ -7,7 +7,7 @@ const getUserById = async (userId) => {
         const user = await User.findOne({ Id: userId }).lean().orFail();
         return user;
     } catch (error) {
-        console.log('ERROR');
+        console.log('ERROR - cannot find user!');
         return null;
     }
 };

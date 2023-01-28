@@ -16,22 +16,18 @@ block content
             h3.column Month: #{month}
 
     if result
-        each val in result
+        each category in result
             .row 
             .cost_data
-            h2 Cost:
-            p
-                strong Day
-                | : #{val.day}
-            p
-                strong Category
-                | : #{val.category.name}
-            p
-                strong Sum
-                | : #{val.sum}
-            p
-                strong Description
-                | : #{val.description}
+            h2.report_category_title #{category._id}:
+            for cost in category.costs
+                for key, value in Object.entries(cost)
+                    - var str = key.toString().replace(',', ' : ');
+
+                    p.category_data
+                        | #{str}
+                br
+
 
 
 

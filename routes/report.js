@@ -4,10 +4,16 @@ const { getUserById } = require("../utils/userUtils");
 const router = express.Router();
 
 
-router.get("/:id/:year/:month", function (req, res) {
+router.get("/:id/:year/:month", async function (req, res) {
   // Retrieve the user_id, year, and month from the request parameters
-  var mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const user_id = req.params.id;
+  const user = await getUserById(user_id)
+
+  if (!user) {
+    return res.status(404).render('error', { title: "to make report.", error: `User  with ID - ${user_id} doesn\'t exists!` });
+  }
+
+  const mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const year = req.params.year;
   let month = req.params.month;
   const month_number = Number(req.params.month)
@@ -34,13 +40,19 @@ router.get("/:id/:year/:month", function (req, res) {
             }
           },
         },
+        {
+          $group: {
+            _id: "$category.name",
+            costs: { $push: { day: "$day", description: "$description", sum: "$sum" } },
+
+          }
+        }
       ],
       async function (err, result) {
         if (err) {
           res.send(err);
         } else {
           if (result.length) {
-            const user = await getUserById(user_id)
             res.status(200).render('report', { result, year, month: mL[month_number - 1], userId: user_id, user });
           } else {
             res.status(200).render('report', { message: `The user did\'nt made any purchase in ${month} of ${year}.` });
@@ -48,7 +60,6 @@ router.get("/:id/:year/:month", function (req, res) {
         }
       });
   } else {
-    console.log(`inside the error?`);
     res.status(403).render('error', { title: "to make report.", error: 'Date - month is not valid!' });
   }
 });

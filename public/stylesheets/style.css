@@ -52,3 +52,11 @@ h2 {
     display: table-cell;
     text-align: center;
 }
+
+.report_category_title {
+    font-size: 17px;
+}
+
+.category_data {
+    margin-left: 2rem;
+}
