@@ -3,6 +3,7 @@ const express = require('express');
 const { getUserById } = require("../utils/userUtils");
 const router = express.Router();
 
+/* GET - report page. */
 router.get("/:id/:year/:month", async function (req, res) {
   // Retrieve the user_id, check if the user exsits
   const user_id = req.params.id;

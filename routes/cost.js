@@ -4,11 +4,12 @@ const Cost = require("../models/cost");
 const Category = require("../models/category")
 const { getUserById } = require('../utils/userUtils');
 
-/* GET cost page. */
+/* GET - cost page. */
 router.get('/', function (req, res, next) {
     res.send('respond with a resource');
 });
 
+/* POST - adding new cost item. */
 router.post('/', async (req, res) => {
     const user = await getUserById(req.body.id);
     if (user) {
