@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
         } catch (e) {
             const errorKey = Object.keys(e.errors)[0].replace('.', ' ')
             console.log("my error: " + errorKey);
-            res.status(401).render('error', { success: false, error: errorKey, message: e._message });;
+            res.status(401).json({ success: false, error: errorKey, message: e._message });;
         }
     } else {
         res.status(401).json({ success: true, message: 'Invalid user id' });
