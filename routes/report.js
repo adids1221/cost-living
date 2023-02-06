@@ -1,7 +1,7 @@
 const Cost = require("../models/cost");
 const express = require('express');
 const { getUserById } = require("../utils/userUtils");
-const { isValidDate, getReport } = require('../utils/reportUtils')
+const { isValidDate, monthFormat, getReport } = require('../utils/reportUtils')
 const router = express.Router();
 
 /* GET - report page. */
@@ -21,19 +21,16 @@ router.get("/:user_id/:year/:month", async function (req, res) {
     res.status(400).send({ error: "Invalid date parameters" });
   }
 
-  //Refactor the month string ny adding 0 if the month is between 1-9
-  const month_number = Number(month);
-  if (month_number < 10 && month.length === 1) {
-    const monthPre = "0"
-    month = monthPre.concat(month)
-  }
-
-  const result = await getReport(year, month, user_id);
+  // month format
+  const fixedMonth = monthFormat(month)
+  const result = await getReport(year, fixedMonth, user_id);
 
   if (result) {
+    // If the user made any purchase at the date was given
     res.status(200).json(result);
   } else {
-    res.status(200).json({ message: `The user did\'nt made any purchase in ${month} of ${year}.` });
+    // If the user didn't made any purchase at the date was given
+    res.status(400).json({ message: `The user did\'nt made any purchase in ${fixedMonth} of ${year}.` });
   }
 });
 

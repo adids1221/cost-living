@@ -17,6 +17,7 @@ router.get('/', function (req, res) {
             "email": "stavgallula@gmail.com",
         },
     };
+    // The response will be a JSON object containing the aboutJson object.
     res.json(aboutJson);
 });
 

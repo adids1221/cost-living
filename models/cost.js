@@ -36,7 +36,6 @@ const costSchema = new Schema({
     }
 });
 
-// Export the model
-//module.exports = new mongoose.model("Cost", costSchema);
-const Cost = mongoose.model("Cost", costSchema);
-module.exports = Cost;
+
+// Create and export a model
+module.exports = mongoose.model("Cost", costSchema);
