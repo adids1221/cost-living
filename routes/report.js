@@ -13,12 +13,12 @@ router.get("/:user_id/:year/:month", async function (req, res) {
   //Check for valid user ID
   const user = await getUserById(user_id);
   if (!user) {
-    return res.status(404).json({ error: `User  with ID - ${user_id} doesn\'t exists!` });
+    res.status(404).json({ error: `User  with ID - ${user_id} doesn\'t exists!` });
   }
 
   // Check for valid date
   if (!isValidDate(month, year)) {
-    return res.status(400).send({ error: "Invalid date parameters" });
+    res.status(400).send({ error: "Invalid date parameters" });
   }
 
   //Refactor the month string ny adding 0 if the month is between 1-9

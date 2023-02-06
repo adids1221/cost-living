@@ -1,10 +1,15 @@
 const Cost = require("../models/cost");
 
-const categories = ['Home', 'Health', 'Housing', 'Sport', 'Education', 'Transportation', 'Other'];
+const categories = ["food", "health", "housing", "sport", "education", "transportation", "other",];
 
 const isValidDate = (month, year) => {
-    return month > 0 && month <= 12 && year >= 1900;
+    return Number(month) > 0 && Number(month) <= 12 && Number(year) >= 1900;
 };
+
+const monthFormat = (month) => {
+    const monthPrefix = '0';
+    return (typeof month !== 'string' && month < 10 || month.length < 2) ? monthPrefix.concat('', month) : month;
+}
 
 const getReport = async (year, month, user_id) => {
     try {
@@ -16,7 +21,7 @@ const getReport = async (year, month, user_id) => {
         });
         // If no costs were found, return a message to the client
         if (!costs.length) {
-            return res.send({ message: "No costs found for specified user_id and month/year" });
+            res.send({ message: "No costs found for specified user_id and month/year" });
         }
 
         // Create a report object by grouping the costs by category
@@ -43,5 +48,6 @@ const getReport = async (year, month, user_id) => {
 
 module.exports = {
     isValidDate,
+    monthFormat,
     getReport
 };

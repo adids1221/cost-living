@@ -14,7 +14,7 @@ const userSchema = new Schema({
     required: true,
     type: Date,
   },
-  Id: {
+  id: {
     type: String,
   }
 });
