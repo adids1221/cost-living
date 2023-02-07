@@ -24,7 +24,7 @@ const getReport = async (year, month, user_id) => {
         });
         // If no costs were found, return a message to the client
         if (!costs.length) {
-            res.send({ message: "No costs found for specified user_id and month/year" });
+            return undefined;
         }
 
         // Create a report object by grouping the costs by category
@@ -39,12 +39,13 @@ const getReport = async (year, month, user_id) => {
             return result;
         }, {});
         if (report) {
+            console.log(report)
             return report;
         }
-        return undefined;
     }
     catch (err) {
         // If there is an error while fetching the costs, return an undefined | error handling is in the report.js file
+        console.error(err)
         return undefined;
     }
 };
