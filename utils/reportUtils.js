@@ -7,7 +7,7 @@ const isValidDate = (month, year) => {
     return Number(month) > 0 && Number(month) <= 12 && Number(year) >= 1900;
 };
 
-// Month format add 0 at the beginig of the month, keep all the dates the same
+// Month format add 0 at the beginning of the month, keep all the dates the same
 const monthFormat = (month) => {
     const monthPrefix = '0';
     return (typeof month !== 'string' && month < 10 || month.length < 2) ? monthPrefix.concat('', month) : month;
@@ -44,8 +44,8 @@ const getReport = async (year, month, user_id) => {
         return undefined;
     }
     catch (err) {
-        // If there is an error while fetching the costs, return an undefined | error handeling is in the report.js file
-        return undefined
+        // If there is an error while fetching the costs, return an undefined | error handling is in the report.js file
+        return undefined;
     }
 };
 
