@@ -30,7 +30,7 @@ const costSchema = new Schema({
         type: String,
         required: [true, 'Missing description.']
     },
-    userId: {
+    user_id: {
         type: String,
         required: [true, 'Missing user id.']
     }

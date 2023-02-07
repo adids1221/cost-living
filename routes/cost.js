@@ -30,26 +30,26 @@ router.post('/', async (req, res) => {
                         name: category,
                     }),
                     sum,
-                    userId: user_id,
+                    user_id,
                 });
 
                 // save the new cost to the db
                 const result = await cost.save();
 
                 // response with 200 and the new saved cost
-                res.status(200).json({ success: true, result });
+                return res.status(200).json({ success: true, result });
             } catch (e) {
                 // if the user get any error during the addcost process this will response with the error came from mongo
                 const errorKey = Object.keys(e.errors)[0].replace('.', ' ');
-                res.status(401).json({ success: false, error: errorKey, message: e._message });
+                return res.status(401).json({ success: false, error: errorKey, message: e._message });
             }
         } else {
             // if the date parameters aren't valid
-            res.status(400).send({ error: "Invalid date parameters" });
+            return res.status(400).send({ error: "Invalid date parameters" });
         }
     } else {
         // if the user doesn't exist response with error
-        res.status(401).json({ success: false, message: 'Invalid user id' });
+        return res.status(401).json({ success: false, message: 'Invalid user id' });
     }
 });
 
