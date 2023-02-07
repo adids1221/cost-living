@@ -18,7 +18,7 @@ const getReport = async (year, month, user_id) => {
     try {
         // Find costs documents in the database based on user_id, year, and month
         const costs = await Cost.find({
-            userId: user_id,
+            user_id,
             year,
             month
         });
