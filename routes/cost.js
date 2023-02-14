@@ -64,7 +64,7 @@ router.post('/', async (req, res) => {
             }
         } else {
             // if the date parameters aren't valid
-            return res.status(400).send({ error: "Invalid date parameters" });
+            return res.status(400).send({ error: 'Invalid date parameters' });
         }
     } else {
         // if the user doesn't exist response with error

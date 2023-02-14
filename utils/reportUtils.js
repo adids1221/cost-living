@@ -5,20 +5,24 @@
 
 const Cost = require("../models/cost");
 
-const categories = ["food", "health", "housing", "sport", "education", "transportation", "other",];
+const categories = ['food', 'health', 'housing', 'sport', 'education', 'transportation', 'other'];
 
 // Function to determine if the date the user sent is valid
-const isValidDate = (day, month, year) => {
-    return dayValidator(day) && monthValidator(month) && yearValidator(year);
-};
+const isValidDate = (day, month, year) => dayValidator(day) && monthValidator(month) && yearValidator(year);
 
+// Function to determine if the date the user sent to generate report is valid
+const reportDateValidator = (month, year) => monthValidator(month) && yearValidator(year);
+
+// Validate day
 const dayValidator = (day) => Number(day) > 0 && Number(day) <= 31;
 
+// Validate month
 const monthValidator = (month) => Number(month) > 0 && Number(month) <= 12;
 
+// Validate year
 const yearValidator = (year) => Number(year) >= 1900;
 
-//If the user didn't sent one of the date parameters
+// If the user didn't sent one of the date parameters
 const currentDateParameters = (year, month, day) => {
     const date = new Date();
     if (!year) {
@@ -77,6 +81,7 @@ const getReport = async (year, month, user_id) => {
 
 module.exports = {
     isValidDate,
+    reportDateValidator,
     monthFormat,
     currentDateParameters,
     getReport

@@ -5,7 +5,7 @@
 
 const express = require('express');
 const { getUserById } = require("../utils/userUtils");
-const { isValidDate, monthFormat, getReport } = require('../utils/reportUtils');
+const { reportDateValidator, monthFormat, getReport } = require('../utils/reportUtils');
 const router = express.Router();
 
 /* GET - report page. */
@@ -18,7 +18,7 @@ router.get("/", async function (req, res) {
 
   // If any of the required parameters is missing, return an error
   if (!year || !month || !user_id) {
-    return res.status(400).send({ error: "Invalid query parameters" });
+    return res.status(400).send({ error: 'Invalid query parameters' });
   }
 
   //Check for valid user ID
@@ -28,8 +28,8 @@ router.get("/", async function (req, res) {
   }
 
   // Check for valid date
-  if (!isValidDate(month, year)) {
-    return res.status(400).send({ error: "Invalid date parameters" });
+  if (!reportDateValidator(month, year)) {
+    return res.status(400).send({ error: 'Invalid date parameters' });
   }
 
   // month format

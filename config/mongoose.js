@@ -27,7 +27,7 @@ async function createUserIfNotExist(user) {
 //mongo connection
 const connectDB = async () => {
     try {
-        const url = "mongodb+srv://cost-living:uSGJQ4P4Aa1PbDo7@cluster0.ktvsn8w.mongodb.net/CostLiving?retryWrites=true&w=majority";
+        const url = 'mongodb+srv://cost-living:uSGJQ4P4Aa1PbDo7@cluster0.ktvsn8w.mongodb.net/CostLiving?retryWrites=true&w=majority';
         mongoose.set("strictQuery", false);
         const conn = await mongoose.connect(url, {
             useNewUrlParser: true,
