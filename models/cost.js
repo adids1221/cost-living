@@ -1,3 +1,8 @@
+/*Developers Details:
+* Adi Mordo - 313531634
+* Stav Gallula - 205969868
+*/
+
 const mongoose = require("mongoose");
 const Category = require("./category").schema;
 const Schema = mongoose.Schema;

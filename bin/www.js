@@ -19,6 +19,11 @@ app.set('port', port);
  * Create HTTP server.
  */
 
+/*Developers Details:
+* Adi Mordo - 313531634
+* Stav Gallula - 205969868
+*/
+
 const server = http.createServer(app);
 
 /**

@@ -1,10 +1,37 @@
+/*Developers Details:
+* Adi Mordo - 313531634
+* Stav Gallula - 205969868
+*/
+
 const Cost = require("../models/cost");
 
 const categories = ["food", "health", "housing", "sport", "education", "transportation", "other",];
 
 // Function to determine if the date the user sent is valid
-const isValidDate = (month, year) => {
-    return Number(month) > 0 && Number(month) <= 12 && Number(year) >= 1900;
+const isValidDate = (day, month, year) => {
+    return dayValidator(day) && monthValidator(month) && yearValidator(year);
+};
+
+const dayValidator = (day) => Number(day) > 0 && Number(day) <= 31;
+
+const monthValidator = (month) => Number(month) > 0 && Number(month) <= 12;
+
+const yearValidator = (year) => Number(year) >= 1900;
+
+//If the user didn't sent one of the date parameters
+const currentDateParameters = (year, month, day) => {
+    const date = new Date();
+    if (!year) {
+        year = date.getFullYear();
+    }
+    if (!month) {
+        month = date.getMonth() + 1;
+    }
+    if (!day) {
+        day = date.getDate();
+    }
+
+    return { year, month, day };
 };
 
 // Month format add 0 at the beginning of the month, keep all the dates the same
@@ -14,7 +41,6 @@ const monthFormat = (month) => {
 }
 
 const getReport = async (year, month, user_id) => {
-
     try {
         // Find costs documents in the database based on user_id, year, and month
         const costs = await Cost.find({
@@ -22,7 +48,8 @@ const getReport = async (year, month, user_id) => {
             year,
             month
         });
-        // If no costs were found, return a message to the client
+
+        // If no costs were found, return an undefined | message sent to the user from the report.js file
         if (!costs.length) {
             return undefined;
         }
@@ -39,19 +66,18 @@ const getReport = async (year, month, user_id) => {
             return result;
         }, {});
         if (report) {
-            console.log(report)
             return report;
         }
     }
     catch (err) {
-        // If there is an error while fetching the costs, return an undefined | error handling is in the report.js file
+        // If there is an error while fetching the costs, return an undefined | message sent to the user from the report.js file
         console.error(err)
-        return undefined;
     }
 };
 
 module.exports = {
     isValidDate,
     monthFormat,
+    currentDateParameters,
     getReport
 };

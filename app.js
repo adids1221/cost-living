@@ -1,3 +1,8 @@
+/*Developers Details:
+* Adi Mordo - 313531634
+* Stav Gallula - 205969868
+*/
+
 const express = require('express');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');

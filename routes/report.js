@@ -1,4 +1,8 @@
-const Cost = require("../models/cost");
+/*Developers Details:
+* Adi Mordo - 313531634
+* Stav Gallula - 205969868
+*/
+
 const express = require('express');
 const { getUserById } = require("../utils/userUtils");
 const { isValidDate, monthFormat, getReport } = require('../utils/reportUtils');
